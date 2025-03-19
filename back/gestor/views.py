@@ -29,4 +29,4 @@ def add_genres(request):
         # serializer.save()
         return Response({"message": "Género creado", "status": status.HTTP_201_CREATED})
     else:
-        return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": serializer.errors, "status": status.HTTP_400_BAD_REQUEST})
