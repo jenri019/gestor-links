@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import views_genres
+from ..views import views_genres
 
 urlpatterns = [
     path('all', views_genres.get_genres),
