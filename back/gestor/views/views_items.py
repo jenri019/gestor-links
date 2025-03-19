@@ -6,7 +6,7 @@ from ..models import Item, Genero
 
 #OBTIEEN EL LISTADO DE ITEMS
 @api_view(['GET'])
-def get_items(request):
+def get_items():
     try:
         items = Item.objects.all().values()
         data = list(items)
@@ -31,7 +31,6 @@ def add_items(request):
             "status": status.HTTP_400_BAD_REQUEST
         }, status=status.HTTP_400_BAD_REQUEST)
     
-    
     # Verificar si todos los IDs existen en la tabla de generos
     generos_existentes = Genero.objects.filter(id__in=generos_ids)
     if generos_existentes.count() != len(generos_ids):
@@ -40,10 +39,20 @@ def add_items(request):
             "status": status.HTTP_404_NOT_FOUND
         }, status=status.HTTP_404_NOT_FOUND)
     
+    # Convertir generos_existentes en un array de strings con los nombres de los generos
+    generos_nombres = generos_existentes.values_list('name', flat=True)
+    # Convertir el array en una caena separada por comas
+    generos_str = ', '.join(generos_nombres)
+
+    #Se intenta crear el item
     try:
-        nuevo_item = Item.objects.create(
-            title=request.data.get('title'),
-            description=request.data.get('description')
+        Item.objects.create(
+            title = request.data.get('title'),
+            description = request.data.get('description'),
+            tipo = request.data.get('type'),
+            url = request.data.get('url'),
+            current_chapter = request.data.get('current_chapter'),
+            generos = generos_str
         )
 
         return Response({
