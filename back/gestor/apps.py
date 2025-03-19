@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class GenerosConfig(AppConfig):
+class GestorConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'generos'
+    name = 'gestor'

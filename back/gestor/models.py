@@ -4,4 +4,4 @@ from django.db.models.fields import CharField, AutoField
 # Create your models here.
 class Genero(models.Model):
     id = AutoField(primary_key=True)
-    title = CharField(max_length=20)
+    name = CharField(max_length=20)
