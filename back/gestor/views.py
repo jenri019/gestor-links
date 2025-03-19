@@ -15,18 +15,25 @@ def hello(request):
 
 @api_view(['GET'])
 def get_genres(request):
-    # Obtener todos los ítems y convertir a diccionarios
     genres = Genero.objects.all().values()
-    # Convertir el QuerySet a una lista
     data = list(genres)
-    # Devolver la lista como respuesta JSON
-    return Response({'genres': data, 'status': status.HTTP_200_OK})
+    return Response({'data': data, 'status': status.HTTP_200_OK})
+
 
 @api_view(['POST'])
 def add_genres(request):
     serializer = GeneroSerializer(data=request.data)
     if serializer.is_valid():
-        # serializer.save()
-        return Response({"message": "Género creado", "status": status.HTTP_201_CREATED})
+        serializer.save()
+        return Response({"error": 0, "message": "Se ha crreado el genero", "status": status.HTTP_201_CREATED})
     else:
-        return Response({"error": serializer.errors, "status": status.HTTP_400_BAD_REQUEST})
+        return Response({ "error": 1, "message": "Error al crear el genero", "data": serializer.errors, "status": status.HTTP_400_BAD_REQUEST})
+    
+""" @api_view(['PUT'])
+def update_genres(request):
+    serializer = GeneroSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"error": 0, "message": "Se ha crreado el genero", "status": status.HTTP_201_CREATED})
+    else:
+        return Response({ "error": 1, "message": "Error al crear el genero", "status": status.HTTP_400_BAD_REQUEST}) """
