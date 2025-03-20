@@ -22,14 +22,15 @@ def get_items(request):
             "message": "Error al obtener los géneros",
             "status": status.HTTP_404_NOT_FOUND
         })
-    
+
+
 @api_view(['POST'])
 def add_items(request):
     generos = request.data.get('generos', [])
     req_type = request.data.get('type')
     title = request.data.get('title')
-    description = request.data.get('description', '')
-    url = request.data.get('url', '')
+    description = request.data.get('description')
+    url = request.data.get('url')
     current_chapter = request.data.get('current_chapter', 0)
 
     # Verificar que vengan los generos en el request
@@ -92,3 +93,27 @@ def add_items(request):
             "error": str(e),
             "status": status.HTTP_500_INTERNAL_SERVER_ERROR
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(['DELETE'])
+def delete_items(request):
+    id = request.data.get('id')
+    if not id:
+        return Response({
+            "message": "El campo 'id' es requerido",
+            "status": status.HTTP_400_BAD_REQUEST
+        })
+
+    try:
+        item = Item.objects.get(ITEM_ID=id)
+    except Item.DoesNotExist:
+        return Response({
+            "message": "El item no existe",
+            "status": status.HTTP_404_NOT_FOUND
+        })
+    
+    item.delete()
+    return Response({
+        "message": "Se ha eliminado el item",
+        "status": status.HTTP_200_OK
+    })
