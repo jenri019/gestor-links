@@ -7,6 +7,7 @@ from rest_framework import status
 from ..models import Item, Genero, Type
 
 #OBTIEEN EL LISTADO DE ITEMS
+
 @api_view(['GET'])
 def get_items(request):
     try:
@@ -22,9 +23,21 @@ def get_items(request):
             'ITEM_GENRES'
         )
         
-        # Renombrar las columnas
-        renamed_items = [
-            {
+        # Lista para almacenar los items procesados
+        processed_items = []
+        
+        for item in items:
+            # Convertir el string de géneros a una lista de IDs
+            genre_ids = json.loads(item['ITEM_GENRES'])
+            
+            # Obtener los nombres de los géneros
+            genres = Genero.objects.filter(GENERO_ID__in=genre_ids).values_list('GENERO_NAME', flat=True)
+            
+            # Concatenar los nombres de los géneros en una cadena
+            genres_str = ', '.join(genres)
+            
+            # Crear un nuevo diccionario con los datos procesados
+            processed_item = {
                 'id': item['ITEM_ID'],
                 'title': item['ITEM_TITLE'],
                 'type': item['ITEM_TYPE__TYPE_NAME'],
@@ -32,13 +45,17 @@ def get_items(request):
                 'url': item['ITEM_URL'],
                 'current_chapter': item['ITEM_CURRENT_CHAPTER'],
                 'on_going': item['ITEM_ON_GOING'],
-                'genres': item['ITEM_GENRES']
+                'genres': {
+                    'ids': genre_ids,  # Array de IDs de géneros
+                    'names': genres_str  # Cadena de nombres de géneros
+                }
             }
-            for item in items
-        ]
+            
+            # Agregar el item procesado a la lista
+            processed_items.append(processed_item)
         
         return Response({
-            'data': renamed_items,
+            'data': processed_items,
             "message": "Items obtenidos correctamente",
             'status': status.HTTP_200_OK
         })
