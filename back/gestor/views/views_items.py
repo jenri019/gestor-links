@@ -1,9 +1,10 @@
 import json
+from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
-from ..models import Item, Genero
+from ..models import Item, Genero, Type
 
 #OBTIEEN EL LISTADO DE ITEMS
 @api_view(['GET'])
@@ -25,6 +26,11 @@ def get_items(request):
 @api_view(['POST'])
 def add_items(request):
     generos = request.data.get('generos', [])
+    req_type = request.data.get('type')
+    title = request.data.get('title')
+    description = request.data.get('description', '')
+    url = request.data.get('url', '')
+    current_chapter = request.data.get('current_chapter', 0)
 
     # Verificar que vengan los generos en el request
     if not generos:
@@ -33,6 +39,21 @@ def add_items(request):
             "status": status.HTTP_400_BAD_REQUEST
         }, status=status.HTTP_400_BAD_REQUEST)
     
+    if not req_type:
+        return Response({
+            "message": "El tipo es requerido",
+            "status": status.HTTP_400_BAD_REQUEST
+        }, status=status.HTTP_400_BAD_REQUEST)
+    
+    try:
+        type_instance = get_object_or_404(Type, pk=req_type)
+    except Exception as e:
+        return Response({
+            "message": "Tipo no encontrado",
+            "error": str(e),
+            "status": status.HTTP_404_NOT_FOUND
+        }, status=status.HTTP_404_NOT_FOUND)
+
     # Verificar si todos los IDs existen en la tabla de generos
     generos_existentes = Genero.objects.filter(GENERO_ID__in=generos)
     if generos_existentes.count() != len(generos):
@@ -52,12 +73,12 @@ def add_items(request):
     #Se intenta crear el item
     try:
         Item.objects.create(
-            title = request.data.get('title'),
-            description = request.data.get('description'),
-            tipo = request.data.get('type'),
-            url = request.data.get('url'),
-            current_chapter = request.data.get('current_chapter'),
-            generos = generos_str
+            ITEM_TITLE = title,
+            ITEM_TYPE=type_instance,  # Usar la instancia de Type
+            ITEM_DESCRIPTION = description,
+            ITEM_URL = url,
+            ITEM_CURRENT_CHAPTER = current_chapter,
+            ITEM_GENRES = generos_str
         )
 
         return Response({
@@ -68,5 +89,6 @@ def add_items(request):
     except Exception as e:
         return Response({
             "message": "Error al crear el item:",
+            "error": str(e),
             "status": status.HTTP_500_INTERNAL_SERVER_ERROR
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
