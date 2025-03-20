@@ -14,7 +14,7 @@ class Item(models.Model):
     ITEM_ID = AutoField(primary_key=True)
     ITEM_TITLE = CharField(max_length=100)
     ITEM_TYPE = models.ForeignKey(Type, on_delete=models.CASCADE)
-    ITEM_ECRIPTION = TextField(max_length = 300, blank=True)
+    ITEM_DESCRIPTION = TextField(max_length = 300, blank=True)
     ITEM_URL = URLField()
     ITEM_CURRENT_CHAPTER = IntegerField()
     ITEM_ON_GOING = BooleanField(default=True)
