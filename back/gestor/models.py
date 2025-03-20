@@ -15,3 +15,7 @@ class Item(models.Model):
     current_chapter = IntegerField()
     on_going = BooleanField(default=True)
     generos = models.TextField(default="")
+
+class Types(models.Model):
+    id = AutoField(primary_key=True)
+    name = CharField(max_length=20)
