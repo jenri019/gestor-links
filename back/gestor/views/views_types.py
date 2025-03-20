@@ -23,9 +23,23 @@ def get_types(request):
     
 @api_view(['POST'])
 def add_types(request):
+    name = request.data.get('name')
+
+    if not name:
+        return Response({
+            "message": "El campo 'name' es requerido",
+            "status": status.HTTP_400_BAD_REQUEST
+        })
+
+    if Type.objects.filter(TYPE_NAME=name).exists():
+        return Response({
+            "message": "El tipo ya existe",
+            "status": status.HTTP_400_BAD_REQUEST
+        })
+    
     try:
         Type.objects.create(
-            name=request.data.get('name')
+            TYPE_NAME=name
         )
         return Response({
             "message": "Se ha creado el tipo",
