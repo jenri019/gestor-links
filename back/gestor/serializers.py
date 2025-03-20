@@ -20,4 +20,5 @@ class GeneroSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
     def validate_name(self, value):
+        print('Value is\n',value)
         return value

@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/genres/', include('gestor.urls.urls_genres')),
     path('api/items/', include('gestor.urls.urls_items')),
+    path('api/types/', include('gestor.urls.urls_types')),
 ]
