@@ -1,7 +1,7 @@
-<div class="item__options" (click)="handleChangeFormVisibility()">
-    <button>Show</button>
-</div>
-<form action="" class="item__form" [ngClass]="{'not-active': !show_form}">
+<button class="item__options" (click)="handleChangeFormVisibility()">
+    <div>Show</div>
+</button>
+<form action="" class="item__form" [ngClass]="!show_form ? 'item__form collapsed' : 'item__form expanded'">
     <label for="">Titulo</label>
     <input type="text" name="" id="">
 
@@ -22,4 +22,8 @@
 
     <label for="">Generos</label>
     <app-item-genres />
+
+    <div class="item__form__buttons">
+        <button class="item__form__button"  >Guardar</button>
+    </div>
 </form>

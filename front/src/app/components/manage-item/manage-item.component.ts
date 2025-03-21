@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './manage-item.component.scss'
 })
 export class ManageItemComponent {
-  show_form: boolean = true;
+  show_form: boolean = false;
 
   handleChangeFormVisibility() {
     this.show_form = !this.show_form;
