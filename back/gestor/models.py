@@ -13,7 +13,7 @@ class Type(models.Model):
 class Item(models.Model):
     ITEM_ID = AutoField(primary_key=True)
     ITEM_TITLE = CharField(max_length=100)
-    ITEM_TYPE = models.ForeignKey(Type, on_delete=models.SET_DEFAULT, default=0, null=True, blank=True)
+    ITEM_TYPE = models.ForeignKey(Type, on_delete=models.SET_NULL, null=True, blank=True)
     ITEM_DESCRIPTION = TextField(max_length = 300, blank=True)
     ITEM_URL = URLField()
     ITEM_CURRENT_CHAPTER = IntegerField()
