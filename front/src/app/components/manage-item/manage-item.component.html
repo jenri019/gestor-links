@@ -1,1 +1,25 @@
-<p>manage-item works!</p>
+<div class="item__options" (click)="handleChangeFormVisibility()">
+    <button>Show</button>
+</div>
+<form action="" class="item__form" [ngClass]="{'not-active': !show_form}">
+    <label for="">Titulo</label>
+    <input type="text" name="" id="">
+
+    <label for="">Descripcion</label>
+    <input type="text" name="" id="">
+
+    <label for="">Tipo</label>
+    <input type="text" name="" id="">
+    
+    <label for="">URL</label>
+    <input type="text" name="" id="">
+
+    <label for="">Capitulo actual</label>
+    <input type="text" name="" id="">
+
+    <label for="">Activo</label>
+    <input type="text" name="" id="">
+
+    <label for="">Generos</label>
+    <app-item-genres />
+</form>
