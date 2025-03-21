@@ -1,8 +1,10 @@
+import ast
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
-from ..models import Genero
+from ..models import Genero, Item
 from ..serializers import GeneroSerializer
 
 #
@@ -91,6 +93,7 @@ def update_genres(request):
             "status": status.HTTP_400_BAD_REQUEST
         })
     
+
 @api_view(['DELETE'])
 def delete_genres(request):
     id = request.data.get('id')
@@ -108,8 +111,19 @@ def delete_genres(request):
             "status": status.HTTP_404_NOT_FOUND
         })
     
+    # Eliminar el género
     genero.delete()
+    
+    # Actualizar los Items que contienen el ID del género eliminado
+    items = Item.objects.all()  # Obtenemos todos los items
+    for item in items:
+        genres_list = ast.literal_eval(item.ITEM_GENRES)  # Convertimos la cadena en una lista
+        if id in genres_list:  # Verificamos si el ID está en la lista
+            genres_list.remove(id)  # Eliminamos el ID de la lista
+            item.ITEM_GENRES = str(genres_list)  # Convertimos la lista de nuevo a cadena
+            item.save()  # Guardamos los cambios
+    
     return Response({
-        "message": "Se ha eliminado el genero",
+        "message": "Se ha eliminado el género y actualizado los items correspondientes",
         "status": status.HTTP_200_OK
     })
