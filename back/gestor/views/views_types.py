@@ -53,6 +53,41 @@ def add_types(request):
         })
     
 
+@api_view(['PUT'])
+def update_types(request):
+    id = request.data.get('id')
+    name = request.data.get('name')
+
+    if not id:
+        return Response({
+            "message": "El campo 'id' es requerido",
+            "status": status.HTTP_400_BAD_REQUEST
+        })
+
+    try:
+        type = Type.objects.get(TYPE_ID=id)
+    except Type.DoesNotExist:
+        return Response({
+            "message": "El tipo no existe",
+            "status": status.HTTP_404_NOT_FOUND
+        })
+
+    if Type.objects.filter(TYPE_NAME=name).exclude(TYPE_ID=id).exists():
+        return Response({
+            "message": "El nombre del tipo ya está en uso",
+            "status": status.HTTP_400_BAD_REQUEST
+        })
+
+    # Actualizar el nombre del género
+    type.TYPE_NAME = name
+    type.save()
+
+    return Response({
+        "message": "Se ha actualizado el tipo",
+        "status": status.HTTP_201_CREATED
+    })
+
+
 @api_view(['DELETE'])
 def delete_types(request):
     id = request.data.get('id')
