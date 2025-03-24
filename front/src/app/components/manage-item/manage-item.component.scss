@@ -3,9 +3,13 @@
     display: flex;
     justify-content: flex-end;
     width: 100%;
-    background-color: #fff;
+    background-color: var(--tertiary-color);
     border: none;
     cursor: pointer;
+
+    * {
+        color: var(--primary-color);
+    }
 }
 
 .item__form {
@@ -15,6 +19,9 @@
     flex-direction: column;
     flex-wrap: wrap;
     overflow: hidden;
+    background-color: var(--tertiary-color);
+    color: var(--primary-color);
+    border-top: none;
     transition: height 0.2s ease, padding 0.2s ease, opacity 0.2s ease;
 
     label {
