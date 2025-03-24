@@ -1,6 +1,6 @@
 <div class="home">
     <app-manage-item />
-    <div class="card__container">
+    <div class="card__container" [ngClass]="{'flex-1 no-item ': cards.length === 0}">
         <ng-container *ngIf="cards.length > 0">
             <app-card *ngFor="let card of cards" [card]="card"></app-card>
         </ng-container>
