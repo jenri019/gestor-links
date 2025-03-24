@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { genres } from '../../data/genres';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -11,5 +10,5 @@ import { CommonModule } from '@angular/common';
   styleUrl: './item-genres.component.scss'
 })
 export class ItemGenresComponent {
-  genres: any[] = genres;
+  genres: any[] = [];
 }

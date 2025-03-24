@@ -348,3 +348,13 @@
   [hidden] {
     display: none;
   }
+
+  html, body {
+    height: 100%;
+  }
+
+  app-root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }

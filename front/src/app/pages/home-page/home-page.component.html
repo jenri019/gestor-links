@@ -1,6 +1,6 @@
 <div class="home">
     <app-manage-item />
     <div class="card__container">
-        <h1>Hello wold</h1>
+        <app-card *ngFor="let card of cards" [card]="card"></app-card>
     </div>
 </div>
