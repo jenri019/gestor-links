@@ -14,5 +14,21 @@ import { CommonModule } from '@angular/common';
   styleUrl: './home-page.component.scss'
 })
 export class HomePageComponent {
-  cards: any[] = [];
+  cards: any[] = [
+    {
+      id: 1,
+      title: 'Card 1',
+      description: 'Description 1',
+    },
+    {
+      id: 2,
+      title: 'Card 2',
+      description: 'Description 2',
+    },
+    {
+      id: 3,
+      title: 'Card 3',
+      description: 'Description 3',
+    }
+  ];
 }
