@@ -5,16 +5,16 @@
 }
 
 .badge {
-    background-color: #f8f9fa;
-    color: #495057;
     cursor: pointer;
     border-radius: 5px;
     padding: 4px 8px;
     margin: 5px 5px 0 0;
-    transition: background-color 0.3s ease, color 0.3s ease; 
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .badge.active {
-    background-color: #007bff;
-    color: #fff;
+    background-color: var(--primary-color);
+    color: var(--white-color);
 }

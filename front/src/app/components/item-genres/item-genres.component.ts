@@ -10,5 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './item-genres.component.scss'
 })
 export class ItemGenresComponent {
-  genres: any[] = [];
+  genres: any[] = [
+    { id: 1, name: 'Action' },
+  ];
 }
