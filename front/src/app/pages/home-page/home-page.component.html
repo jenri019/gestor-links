@@ -1,6 +1,6 @@
 <div class="home">
     <app-manage-item />
-    <div class="card__container" [ngClass]="{'flex-1 no-item ': cards.length === 0}">
+    <div class="card__container" [ngClass]="{'flex-1 no-item ': cards.length === 0}" *ngIf="!isLoading">
         <ng-container *ngIf="cards.length > 0">
             <app-card *ngFor="let card of cards" [card]="card"></app-card>
         </ng-container>
@@ -8,4 +8,7 @@
             No hay items disponibles
         </div>
     </div>
+</div>
+<div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.3);" *ngIf="isLoading">
+    <app-loader></app-loader>
 </div>
