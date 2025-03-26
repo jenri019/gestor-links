@@ -1,8 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
 import TypesActions from '../actions/types.actions';
-import { GenresTypes } from '../../interfaces/state.interface';
+import { CustomState } from '../../interfaces/state.interface';
 
-const defaultState: GenresTypes = {
+const defaultState: CustomState = {
     flag: true,
     data: []
 };
@@ -10,7 +10,7 @@ const defaultState: GenresTypes = {
 /**
  * Estado inicial para los generos.
  */
-const initialState: GenresTypes = defaultState;
+const initialState: CustomState = defaultState;
 
 /**
  * Reductor para manejar las acciones relacionadas con los generos.

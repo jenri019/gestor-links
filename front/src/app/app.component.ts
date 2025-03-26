@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HomePageComponent } from "./pages/home-page/home-page.component";
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AppState, GenresTypes } from './interfaces/state.interface';
+import { AppState, CustomState } from './interfaces/state.interface';
 import { LoaderComponent } from './templates/loader/loader.component';
 import { CommonModule } from '@angular/common';
 
@@ -28,10 +28,10 @@ export class AppComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit(): void {
-        this.genresSubscription = this.store.select('genres').subscribe((genres: GenresTypes) => {
+        this.genresSubscription = this.store.select('genres').subscribe((genres: CustomState) => {
             this.isLoadingGenres = genres.flag;
         });
-        this.typesSubscription = this.store.select('types').subscribe((types: GenresTypes) => {
+        this.typesSubscription = this.store.select('types').subscribe((types: CustomState) => {
             this.isLoadingTypes = types.flag;
         });
     }

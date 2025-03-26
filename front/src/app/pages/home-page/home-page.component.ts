@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { GenresService } from '../../services/genres.service';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AppState, GenresTypes } from '../../interfaces/state.interface';
+import { AppState, CustomState } from '../../interfaces/state.interface';
 import GenresActions from '../../store/actions/genres.actions';
 import { TypesService } from '../../services/types.service';
 import TypesActions from '../../store/actions/types.actions';
@@ -52,12 +52,12 @@ export class HomePageComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit(): void {
-        this.genresSubscription = this.store.select('genres').subscribe((genres: GenresTypes) => {
+        this.genresSubscription = this.store.select('genres').subscribe((genres: CustomState) => {
             if (genres.flag) this.onGetGenres();
             else this.genres = genres.data;
         });
 
-        this.typesSubscription = this.store.select('types').subscribe((types: GenresTypes) => {
+        this.typesSubscription = this.store.select('types').subscribe((types: CustomState) => {
             if (types.flag) this.onGetTypes();
             else this.types = types.data;
         });

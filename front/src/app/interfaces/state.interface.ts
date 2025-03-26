@@ -5,20 +5,24 @@ export interface AppState {
     /**
      * Estado relacionado con las promociones.
      */
-    genres: GenresTypes;
+    genres: CustomState;
     /**
      * Estado relacionado con los tipos de elementos.
      */
-    types: GenresTypes;
+    types: CustomState;
+    /**
+     * Estado relacionado con los items.
+     */
+    items: CustomState;
 }
 
-export interface GenresTypes {
+export interface CustomState {
     /**
-     * Indica si se debe consulatr la informacion de los generos.
+     * Indica si se debe consulatr la informacion.
      */
     flag: boolean;
     /**
-     * Lista de generos.
+     * Listado e elemtos.
      */
     data: any[];
 }
