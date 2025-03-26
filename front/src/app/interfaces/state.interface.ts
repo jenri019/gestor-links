@@ -5,10 +5,14 @@ export interface AppState {
     /**
      * Estado relacionado con las promociones.
      */
-    genres: Genres;
+    genres: GenresTypes;
+    /**
+     * Estado relacionado con los tipos de elementos.
+     */
+    types: GenresTypes;
 }
 
-export interface Genres {
+export interface GenresTypes {
     /**
      * Indica si se debe consulatr la informacion de los generos.
      */

@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import GenresActions from '../actions/genres.actions';
+import TypesActions from '../actions/types.actions';
 import { GenresTypes } from '../../interfaces/state.interface';
 
 const defaultState: GenresTypes = {
@@ -15,13 +15,13 @@ const initialState: GenresTypes = defaultState;
 /**
  * Reductor para manejar las acciones relacionadas con los generos.
  */
-const _genresReducer = createReducer(
+const _typesReducer = createReducer(
     initialState,
-    on(GenresActions.set, (state, { props }) => ({
+    on(TypesActions.set, (state, { props }) => ({
         ...state,
         ...props
     })),
-    on(GenresActions.reset, () => {
+    on(TypesActions.reset, () => {
         return defaultState;
     })
 );
@@ -32,6 +32,6 @@ const _genresReducer = createReducer(
  * @param action Acción despachada.
  * @returns Nuevo estado.
  */
-export function genresReducer(state: any, action: any) {
-    return _genresReducer(state, action);
+export function typesReducer(state: any, action: any) {
+    return _typesReducer(state, action);
 }
