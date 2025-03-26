@@ -1,10 +1,10 @@
 <div class="home">
     <app-manage-item />
-    <div class="card__container" [ngClass]="{'flex-1 no-item ': cards.length === 0}">
-        <ng-container *ngIf="cards.length > 0">
-            <app-card *ngFor="let card of cards" [card]="card"></app-card>
+    <div class="card__container" [ngClass]="{'flex-1 no-item ': items.length === 0}">
+        <ng-container *ngIf="items.length > 0">
+            <app-card *ngFor="let card of items" [card]="card"></app-card>
         </ng-container>
-        <div class="card__no-item" *ngIf="cards.length === 0">
+        <div class="card__no-item" *ngIf="items.length === 0">
             No hay items disponibles
         </div>
     </div>

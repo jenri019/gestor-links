@@ -2,13 +2,18 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ManageItemComponent } from "../../components/manage-item/manage-item.component";
 import { CardComponent } from "../../components/card/card.component";
 import { CommonModule } from '@angular/common';
-import { GenresService } from '../../services/genres.service';
 import { Subscription } from 'rxjs';
+
 import { Store } from '@ngrx/store';
 import { AppState, CustomState } from '../../interfaces/state.interface';
-import GenresActions from '../../store/actions/genres.actions';
+
+import { GenresService } from '../../services/genres.service';
 import { TypesService } from '../../services/types.service';
+import { ItemsService } from '../../services/items.service';
+
+import GenresActions from '../../store/actions/genres.actions';
 import TypesActions from '../../store/actions/types.actions';
+import ItemsActions from '../../store/actions/items.actions';
 
 @Component({
     selector: 'app-home-page',
@@ -24,9 +29,11 @@ export class HomePageComponent implements OnInit, OnDestroy {
     isLoading: boolean = false;
     genres: any[] = [];
     types: any[] = [];
+    items: any[] = [];
     
     private genresSubscription!: Subscription;
     private typesSubscription!: Subscription;
+    private itemsSubscription!: Subscription;
     cards: any[] = [
         {
             id: 1,
@@ -48,6 +55,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
     constructor(
         private _genresService: GenresService,
         private _typesService: TypesService,
+        private _itemsService: ItemsService,
         private store: Store<AppState>
     ) { }
 
@@ -61,6 +69,11 @@ export class HomePageComponent implements OnInit, OnDestroy {
             if (types.flag) this.onGetTypes();
             else this.types = types.data;
         });
+
+        this.itemsSubscription = this.store.select('items').subscribe((items: CustomState) => {
+            if (items.flag) this.onGetItems();
+            else this.items = items.data;
+        });
     }
 
     ngOnDestroy(): void {
@@ -70,13 +83,16 @@ export class HomePageComponent implements OnInit, OnDestroy {
         if (this.typesSubscription) {
             this.typesSubscription.unsubscribe();
         }
+        if (this.itemsSubscription) {
+            this.itemsSubscription.unsubscribe();
+        }
     }
 
     onGetGenres = () => {
-        this.isLoading = true;
         this._genresService.onGetGenres().subscribe({
             next: (resp) => {
                 this.store.dispatch(GenresActions.set({ props: { data: resp.data, flag: false } }));
+                this.store.dispatch(TypesActions.set({ props: { flag: true } }));
             },
             error: (err) => {
             }
@@ -84,10 +100,20 @@ export class HomePageComponent implements OnInit, OnDestroy {
     }
 
     onGetTypes = () => {
-        this.isLoading = true;
         this._typesService.onGetTypes().subscribe({
             next: (resp) => {
                 this.store.dispatch(TypesActions.set({ props: { data: resp.data, flag: false } }));
+                this.store.dispatch(ItemsActions.set({ props: { flag: true } }));
+            },
+            error: (err) => {
+            }
+        })
+    }
+
+    onGetItems = () => {
+        this._itemsService.onGetItems().subscribe({
+            next: (resp) => {
+                this.store.dispatch(ItemsActions.set({ props: { data: resp.data, flag: false } }));
             },
             error: (err) => {
             }

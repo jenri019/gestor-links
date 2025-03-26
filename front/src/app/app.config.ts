@@ -7,6 +7,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideStore } from '@ngrx/store';
 import { genresReducer } from './store/reducers/genres.reducer';
 import { typesReducer } from './store/reducers/types.reducer';
+import { itemsReducer } from './store/reducers/items.reducer';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -16,7 +17,8 @@ export const appConfig: ApplicationConfig = {
         // Configuración del store global con reducers para diferentes estados
         provideStore({
             genres: genresReducer,
-            types: typesReducer
+            types: typesReducer,
+            items: itemsReducer
         })
     ]
 };

@@ -3,7 +3,7 @@ import TypesActions from '../actions/types.actions';
 import { CustomState } from '../../interfaces/state.interface';
 
 const defaultState: CustomState = {
-    flag: true,
+    flag: false,
     data: []
 };
 

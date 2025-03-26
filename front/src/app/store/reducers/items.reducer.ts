@@ -1,9 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
-import ItemsActions from '../actions/items.actions';
 import { CustomState } from '../../interfaces/state.interface';
+import ItemsActions from '../actions/items.actions';
 
 const defaultState: CustomState = {
-    flag: true,
+    flag: false,
     data: []
 };
 
@@ -32,6 +32,6 @@ const _itemsReducer = createReducer(
  * @param action Acción despachada.
  * @returns Nuevo estado.
  */
-export function typesReducer(state: any, action: any) {
+export function itemsReducer(state: any, action: any) {
     return _itemsReducer(state, action);
 }
