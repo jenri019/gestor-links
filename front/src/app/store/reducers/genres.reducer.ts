@@ -3,7 +3,7 @@ import GenresActions from '../actions/genres.actions';
 import { Genres } from '../../interfaces/state.interface';
 
 const defaultState: Genres = {
-    flag: false,
+    flag: true,
     data: []
 };
 
