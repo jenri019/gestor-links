@@ -1,17 +1,22 @@
 .card {
     cursor: pointer;
     border-radius: 5px;
-    padding: 10px;
     margin: 10px;
     height: 200px;
     display: flex;
     flex-direction: column;
     transition: box-shadow 0.2s ease, transform 0.3s ease;
+    background-color: #fff;
 
     &__title {
         display: flex;
         flex-direction: row;
         align-items: center;
+        padding: 10px 1rem;
+        background-color: var(--tertiary-color);
+        color: var(--white-color);
+        transition: background-color 0.3s ease, color 0.3s ease;
+
 
         span {
             width: 15px;
@@ -32,17 +37,60 @@
 
     &__content {
         flex: 1;
+        margin: 10px 1.5rem;
+
         p {
-            margin: 0.5rem 0;
+            margin: 0;
             font-size: 1rem;
             color: #666;
-            overflow: hidden; /* Oculta el contenido que excede el área visible */
-            text-overflow: ellipsis; /* Agrega los puntos suspensivos */
-            display: -webkit-box; /* Habilita el comportamiento de caja flexible */
-            -webkit-line-clamp: 3; /* Limita el texto a 3 líneas */
-            -webkit-box-orient: vertical; /* Define la orientación del contenido */
-            line-height: 1.5rem; /* Ajusta la altura de línea para controlar el alto total */
-            max-height: calc(1.5rem * 3); /* Asegura que el alto máximo coincida con 3 líneas */
+            overflow: hidden;
+            /* Oculta el contenido que excede el área visible */
+            text-overflow: ellipsis;
+            /* Agrega los puntos suspensivos */
+            display: -webkit-box;
+            /* Habilita el comportamiento de caja flexible */
+            -webkit-line-clamp: 5;
+            /* Limita el texto a 3 líneas */
+            -webkit-box-orient: vertical;
+            /* Define la orientación del contenido */
+            line-height: 1.5rem;
+            /* Ajusta la altura de línea para controlar el alto total */
+            max-height: calc(1.5rem * 5);
+            /* Asegura que el alto máximo coincida con 3 líneas */
+        }
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: auto;
+
+        button {
+            width: 100%;
+            padding: 5px 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            border: none;
+            cursor: pointer;
+            background-color: var(--tertiary-color);
+            color: var(--white-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+    }
+
+    &:hover {
+        transform: scaleX(1.02) scaleY(1.02);
+
+        .card__title {
+            background-color: var(--secondary-color);
+            color: var(--white-color);
+        }
+
+        .card__footer button {
+            background-color: var(--secondary-color);
+            color: var(--white-color);
         }
     }
 }
