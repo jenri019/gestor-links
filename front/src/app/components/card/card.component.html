@@ -1,7 +1,7 @@
 <div class="card box-shadow">
     <div class="card__title">
+        <span [ngStyle]="{ 'background-color': card.on_going ? '#33cc32' : '#cf2028' }"></span>
         <h1>{{ card.title }}</h1>
-        <span></span>
     </div>
     <div class="card__content">
         <p>{{ card.description || 'Sin descripcion' }}</p>

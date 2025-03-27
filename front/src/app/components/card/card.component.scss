@@ -3,6 +3,46 @@
     border-radius: 5px;
     padding: 10px;
     margin: 10px;
-    width: auto;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
     transition: box-shadow 0.2s ease, transform 0.3s ease;
+
+    &__title {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        span {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: calc(100% - 30px);
+        }
+    }
+
+    &__content {
+        flex: 1;
+        p {
+            margin: 0.5rem 0;
+            font-size: 1rem;
+            color: #666;
+            overflow: hidden; /* Oculta el contenido que excede el área visible */
+            text-overflow: ellipsis; /* Agrega los puntos suspensivos */
+            display: -webkit-box; /* Habilita el comportamiento de caja flexible */
+            -webkit-line-clamp: 3; /* Limita el texto a 3 líneas */
+            -webkit-box-orient: vertical; /* Define la orientación del contenido */
+            line-height: 1.5rem; /* Ajusta la altura de línea para controlar el alto total */
+            max-height: calc(1.5rem * 3); /* Asegura que el alto máximo coincida con 3 líneas */
+        }
+    }
 }
