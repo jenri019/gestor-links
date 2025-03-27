@@ -1,5 +1,12 @@
 <div class="card box-shadow">
-    <pre>
-        {{ card | json}}
-    </pre>
+    <div class="card__title">
+        <h1>{{ card.title }}</h1>
+        <span></span>
+    </div>
+    <div class="card__content">
+        <p>{{ card.description || 'Sin descripcion' }}</p>
+    </div>
+    <div class="card__footer">
+        <button>Ver capitulo {{ card.current_chapter }}</button>
+    </div>
 </div>
